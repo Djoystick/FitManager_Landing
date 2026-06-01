@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Send, Twitter, Shield, FileText } from "lucide-react";
+import { Send, Globe, Shield, FileText } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -20,7 +20,7 @@ export default function Footer() {
                 <Send className="w-5 h-5" />
               </Link>
               <Link href="#" className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors">
-                <Twitter className="w-5 h-5" />
+                <Globe className="w-5 h-5" />
               </Link>
             </div>
           </div>
