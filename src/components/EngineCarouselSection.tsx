@@ -44,7 +44,7 @@ const slides = [
 ];
 
 export default function EngineCarouselSection() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
   const [selectedSlide, setSelectedSlide] = useState<typeof slides[0] | null>(null);
 
   const scrollPrev = useCallback(() => {

@@ -27,9 +27,18 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col relative bg-background text-foreground">
+      <body className="min-h-full flex flex-col relative bg-[#050505] text-foreground">
         {/* Global Neuro-Punk Grid Background */}
-        <div className="fixed inset-0 z-0 cyber-grid opacity-30 pointer-events-none"></div>
+        <div 
+          className="fixed inset-0 z-0 pointer-events-none"
+          style={{
+            backgroundSize: '40px 40px',
+            backgroundImage: `
+              linear-gradient(to right, rgba(0, 229, 255, 0.1) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(0, 229, 255, 0.1) 1px, transparent 1px)
+            `
+          }}
+        ></div>
         
         {/* Subtle animated vignette */}
         <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#050505_85%)] pointer-events-none"></div>
