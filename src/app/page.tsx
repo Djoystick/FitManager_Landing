@@ -1,6 +1,8 @@
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import EngineCarouselSection from "@/components/EngineCarouselSection";
+import RoadmapSection from "@/components/RoadmapSection";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -8,6 +10,8 @@ export default function Home() {
       <HeroSection />
       <FeaturesSection />
       <EngineCarouselSection />
+      <RoadmapSection />
+      <Footer />
     </main>
   );
 }
