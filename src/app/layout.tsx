@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Orbitron, Rajdhani } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const rajdhani = Rajdhani({
+  variable: "--font-rajdhani",
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -25,9 +26,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${orbitron.variable} ${rajdhani.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col relative bg-[#050505] text-foreground">
+      <body className="min-h-full flex flex-col relative bg-[#050505] text-foreground font-sans">
         {/* Global Neuro-Punk Grid Background */}
         <div 
           className="fixed inset-0 z-0 pointer-events-none"
