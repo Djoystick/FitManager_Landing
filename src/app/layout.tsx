@@ -27,13 +27,17 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col relative bg-background">
+      <body className="min-h-full flex flex-col relative bg-background text-foreground">
         {/* Global Neuro-Punk Grid Background */}
-        <div className="fixed inset-0 z-[-1] cyber-grid opacity-30 pointer-events-none"></div>
-        {/* Subtle animated vignette */}
-        <div className="fixed inset-0 z-[-1] bg-[radial-gradient(ellipse_at_center,transparent_0%,#050505_80%)] pointer-events-none"></div>
+        <div className="fixed inset-0 z-0 cyber-grid opacity-30 pointer-events-none"></div>
         
-        {children}
+        {/* Subtle animated vignette */}
+        <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#050505_85%)] pointer-events-none"></div>
+        
+        {/* Main Content */}
+        <div className="relative z-10 flex-grow">
+          {children}
+        </div>
       </body>
     </html>
   );
