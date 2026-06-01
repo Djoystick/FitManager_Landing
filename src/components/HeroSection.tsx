@@ -168,7 +168,7 @@ export default function HeroSection() {
             <Activity className="w-8 h-8 md:w-10 md:h-10 text-green-400 mb-3 md:mb-4" />
             <h3 className="text-lg md:text-xl font-bold mb-2 text-white">Fitness-to-Earn</h3>
             <p className="text-gray-400 text-xs md:text-sm">Синхронизируй шаги и конвертируй физическую активность в бонусы для своего клуба.</p>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
