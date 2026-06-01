@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import { Tektur, Exo_2 } from "next/font/google";
+import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 
-const tektur = Tektur({
-  variable: "--font-tektur",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin", "cyrillic"],
 });
 
-const exo2 = Exo_2({
-  variable: "--font-exo2",
-  weight: ["300", "400", "500", "600", "700"],
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin", "cyrillic"],
 });
 
 export const metadata: Metadata = {
-  title: "FitManager | Web3 Cyber-Football",
-  description: "The First Move-to-Earn Football Manager on Telegram & TON. Convert your real-world sweat into digital glory.",
+  title: "FitManager Web3",
+  description: "Первый футбольный Web3-менеджер в Telegram, где побеждает интеллект, а не случайность.",
 };
 
 export default function RootLayout({
@@ -26,25 +25,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${tektur.variable} ${exo2.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased bg-midnight-abyss text-comet`}
     >
-      <body className="min-h-full flex flex-col relative bg-[#050505] text-foreground font-sans">
-        {/* Global Neuro-Punk Grid Background */}
-        <div 
-          className="fixed inset-0 z-0 pointer-events-none opacity-50"
-          style={{
-            backgroundImage: 'linear-gradient(to right, #00f0ff22 1px, transparent 1px), linear-gradient(to bottom, #00f0ff22 1px, transparent 1px)',
-            backgroundSize: '40px 40px'
-          }}
-        ></div>
+      <body className="min-h-full flex flex-col relative font-sans selection:bg-neon-violet/30 selection:text-white">
         
-        {/* Subtle animated vignette */}
-        <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#050505_90%)] pointer-events-none"></div>
-        
-        {/* Main Content */}
-        <div className="relative z-10 flex-grow">
-          {children}
-        </div>
+        {children}
       </body>
     </html>
   );

@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Circle } from "lucide-react";
+import { Check, CircleDashed } from "lucide-react";
 
 export default function RoadmapSection() {
   const roadmap = [
     {
-      phase: "Фаза 1: Архитектура и Движок (Завершено)",
+      phase: "Фаза 1: Архитектура и Движок",
       status: "completed",
       items: [
         "Telegram TMA и Supabase интеграция",
@@ -16,7 +16,7 @@ export default function RoadmapSection() {
       ]
     },
     {
-      phase: "Фаза 2: Закрытая Бета (Текущая)",
+      phase: "Фаза 2: Закрытая Бета",
       status: "current",
       items: [
         "Синхронизация шагов (Walk-to-Earn / Sweat Bank)",
@@ -47,64 +47,63 @@ export default function RoadmapSection() {
   ];
 
   return (
-    <section className="py-16 md:py-24 relative border-t border-white/5 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6 max-w-4xl relative z-10">
-        <div className="text-center mb-12 md:mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold mb-4 md:mb-6"
-          >
-            Эволюция <span className="text-neon-yellow text-glow">Проекта</span>
-          </motion.h2>
+    <section className="py-24 relative z-10 border-t shadow-subtle-3">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
+        
+        <div className="text-center mb-16">
+          <h2 className="text-heading-lg md:text-display font-bold text-ghost-white mb-4">
+            Эволюция платформы
+          </h2>
+          <p className="text-body-lg text-comet max-w-2xl mx-auto opacity-80">
+            Мы строим долгосрочный продукт, а не временный хайп. Наш фокус — стабильная экономика.
+          </p>
         </div>
 
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.2 }
-            }
-          }}
-          className="space-y-6 md:space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-neon-cyan/50 before:to-transparent perspective-1000"
-        >
+        <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-px before:bg-white/10">
           {roadmap.map((phase, idx) => (
             <motion.div 
               key={idx} 
-              variants={{
-                hidden: { opacity: 0, x: idx % 2 === 0 ? -50 : 50, rotateY: idx % 2 === 0 ? 15 : -15, filter: "blur(5px)" },
-                visible: { opacity: 1, x: 0, rotateY: 0, filter: "blur(0px)", transition: { type: "spring", stiffness: 80, damping: 15 } }
-              }}
-              className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="relative flex items-start justify-between md:justify-normal md:odd:flex-row-reverse group"
             >
               
-              {/* Icon / Node */}
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#050505] bg-black shadow-[0_0_20px_rgba(0,240,255,0.2)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 relative z-10 transition-transform duration-500 group-hover:scale-125 group-hover:shadow-[0_0_30px_rgba(0,240,255,0.5)]">
+              {/* Timeline Node */}
+              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-midnight-abyss bg-storm-gray shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 relative z-10">
                 {phase.status === "completed" ? (
-                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <Check className="w-4 h-4 text-ghost-white" />
                 ) : phase.status === "current" ? (
-                  <div className="w-3 h-3 bg-neon-cyan rounded-full animate-[ping_2s_ease-in-out_infinite] box-glow" />
+                  <div className="w-2.5 h-2.5 bg-neon-violet rounded-full shadow-[0_0_8px_rgba(102,58,243,0.8)]" />
                 ) : (
-                  <Circle className="w-4 h-4 text-gray-600" />
+                  <CircleDashed className="w-4 h-4 text-white/30" />
                 )}
               </div>
               
               {/* Card */}
-              <div 
-                className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-5 md:p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-neon-cyan/50 hover:bg-white/10 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)] group-hover:-translate-y-1"
-              >
-                <h3 className={`text-lg md:text-xl font-bold mb-3 ${phase.status === 'current' ? 'text-neon-cyan text-glow' : 'text-white'}`}>
-                  {phase.phase}
-                </h3>
-                <ul className="space-y-2">
+              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl bg-white/[0.02] shadow-subtle-4 border border-white/5 hover:bg-white/[0.04] transition-colors mt-1 md:mt-0">
+                <div className="flex items-center gap-3 mb-4">
+                  <h3 className={`text-subheading font-bold ${phase.status === 'current' ? 'text-ghost-white' : 'text-comet'}`}>
+                    {phase.phase}
+                  </h3>
+                  {phase.status === "completed" && (
+                    <span className="px-2 py-0.5 rounded text-[10px] uppercase font-medium bg-white/10 text-ghost-white">
+                      Done
+                    </span>
+                  )}
+                  {phase.status === "current" && (
+                    <span className="px-2 py-0.5 rounded text-[10px] uppercase font-medium bg-neon-violet/20 text-neon-violet border border-neon-violet/30">
+                      In Progress
+                    </span>
+                  )}
+                </div>
+                
+                <ul className="space-y-3">
                   {phase.items.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm md:text-base text-gray-400">
-                      <span className="text-neon-cyan mt-1 opacity-50">-</span> {item}
+                    <li key={i} className="flex items-start gap-2 text-body text-arctic-mist opacity-80">
+                      <span className="text-white/30 mt-1.5 w-1 h-1 rounded-full bg-current shrink-0" /> 
+                      <span className="leading-snug">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -112,7 +111,8 @@ export default function RoadmapSection() {
 
             </motion.div>
           ))}
-        </motion.div>
+        </div>
+
       </div>
     </section>
   );

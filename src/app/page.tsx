@@ -1,15 +1,13 @@
 import HeroSection from "@/components/HeroSection";
-import FeaturesSection from "@/components/FeaturesSection";
-import EngineCarouselSection from "@/components/EngineCarouselSection";
+import FeatureGrid from "@/components/FeatureGrid";
 import RoadmapSection from "@/components/RoadmapSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative">
+    <main className="flex min-h-screen flex-col overflow-hidden selection:bg-neon-violet/30 selection:text-white">
       <HeroSection />
-      <FeaturesSection />
-      <EngineCarouselSection />
+      <FeatureGrid />
       <RoadmapSection />
       <Footer />
     </main>

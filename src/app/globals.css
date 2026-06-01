@@ -1,44 +1,114 @@
 @import "tailwindcss";
 
-:root {
-  --background: #050505; /* Pitch black / dark slate */
-  --foreground: #ededed;
-  --neon-cyan: #00f0ff;
-  --neon-yellow: #fcee0a;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-neon-cyan: var(--neon-cyan);
-  --color-neon-yellow: var(--neon-yellow);
-  --font-sans: var(--font-exo2);
-  --font-display: var(--font-tektur);
+  /* Colors */
+  --color-midnight-abyss: #05060f;
+  --color-ghost-white: #ffffff;
+  --color-storm-gray: #2f343;
+  --color-comet: #d8ecf8;
+  --color-arctic-mist: #d1e4fa;
+  --color-celestial-light: #b6d9fc;
+  --color-azure-glow: #c7d3ea;
+  --color-slate-dew: #3f4959;
+  --color-whisper-blue: #9da7ba;
+  --color-neon-violet: #663af3;
+  --color-interstellar-gray: #81899b;
+  --color-twilight-gradient-overlay: #d8ecf8;
+  --color-system-highlight-border: #bacff7;
+
+  /* Typography */
+  --font-untitled-sans: var(--font-inter), 'Untitled Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-aeonikpro: var(--font-space-grotesk), 'aeonikPro', ui-sans-serif, system-ui, sans-serif;
+  --font-dotdigital: var(--font-inter), 'dotDigital', ui-sans-serif, system-ui, sans-serif;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-36: 36px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-100: 100px;
+  --spacing-120: 120px;
+  --spacing-200: 200px;
+
+  /* Border Radius */
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm: rgba(186, 207, 247, 0.32) 0px 0px 6px 0px;
+  --shadow-md: rgba(238, 186, 247, 0.24) 0px 0px 12px 0px;
+  --shadow-subtle: rgba(186, 215, 247, 0.12) 0px 0px 0px 1px inset;
+  --shadow-subtle-2: rgba(199, 211, 234, 0.12) -0.5px 0.5px 1px 0px inset, rgba(186, 215, 247, 0.08) 0px 0px 96px 0px inset;
+  --shadow-subtle-3: rgba(186, 214, 247, 0.06) 0px 0px 0px 1px inset;
+  --shadow-subtle-4: rgba(199, 211, 234, 0.12) 0px 1px 1px 0px inset, rgba(199, 211, 234, 0.05) 0px 24px 48px 0px inset, rgba(6, 6, 14, 0.7) 0px 24px 32px 0px;
+  --shadow-subtle-5: rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+  --shadow-subtle-6: rgba(216, 236, 248, 0.2) 0px 1px 1px 0px inset, rgba(168, 216, 245, 0.06) 0px 24px 48px 0px inset, rgba(0, 0, 0, 0.3) 0px 16px 32px 0px;
+  --shadow-subtle-7: rgba(216, 236, 248, 0.2) 0px 1px 1px 0px inset, rgba(168, 216, 245, 0.06) 0px 24px 48px 0px inset;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  overflow-x: hidden;
+@layer base {
+  body {
+    background-color: var(--color-midnight-abyss);
+    color: var(--color-comet);
+    font-family: var(--font-untitled-sans);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-aeonikpro);
+    color: var(--color-ghost-white);
+    letter-spacing: 0;
+  }
+
+  p {
+    letter-spacing: -0.01em;
+  }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
+/* Typography Scale utilities that map to standard Tailwind classes, adapted for the new font */
+@layer utilities {
+  .text-display-xl {
+    font-size: 48px;
+    line-height: 1.14;
+  }
+  .text-display {
+    font-size: 44px;
+    line-height: 1.16;
+  }
+  .text-heading-lg {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  .text-heading {
+    font-size: 24px;
+    line-height: 1.33;
+  }
+  .text-subheading {
+    font-size: 18px;
+    line-height: 1.43;
+  }
+  .text-body-lg {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .text-body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .text-caption {
+    font-size: 12px;
+    line-height: 1.5;
+  }
 }
 
-/* Custom glow utility */
-@utility text-glow {
-  text-shadow: 0 0 10px var(--neon-cyan);
-}
-@utility box-glow {
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-}
-
-/* Neuro-Punk Grid Background */
-@utility cyber-grid {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
-}
+/* Remove old animations that don't fit */
