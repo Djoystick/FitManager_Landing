@@ -28,7 +28,7 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-background relative border-t border-white/5">
+    <section className="py-16 md:py-24 relative border-t border-white/5">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12 md:mb-16">
           <motion.h2 

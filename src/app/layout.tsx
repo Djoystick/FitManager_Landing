@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Orbitron, Rajdhani } from "next/font/google";
+import { Tektur, Exo_2 } from "next/font/google";
 import "./globals.css";
 
-const orbitron = Orbitron({
-  variable: "--font-orbitron",
-  subsets: ["latin"],
+const tektur = Tektur({
+  variable: "--font-tektur",
+  subsets: ["latin", "cyrillic"],
 });
 
-const rajdhani = Rajdhani({
-  variable: "--font-rajdhani",
+const exo2 = Exo_2({
+  variable: "--font-exo2",
   weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
 });
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${orbitron.variable} ${rajdhani.variable} h-full antialiased`}
+      className={`${tektur.variable} ${exo2.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col relative bg-[#050505] text-foreground font-sans">
         {/* Global Neuro-Punk Grid Background */}

@@ -12,8 +12,8 @@
   --color-foreground: var(--foreground);
   --color-neon-cyan: var(--neon-cyan);
   --color-neon-yellow: var(--neon-yellow);
-  --font-sans: var(--font-rajdhani);
-  --font-display: var(--font-orbitron);
+  --font-sans: var(--font-exo2);
+  --font-display: var(--font-tektur);
 }
 
 body {

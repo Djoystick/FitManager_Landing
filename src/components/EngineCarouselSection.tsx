@@ -65,27 +65,27 @@ export default function EngineCarouselSection() {
   }, [selectedSlide]);
 
   return (
-    <section className="py-24 bg-background relative overflow-hidden border-t border-white/5">
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
+    <section className="py-16 md:py-24 relative overflow-hidden border-t border-white/5">
+      <div className="w-full relative z-10">
+        <div className="container mx-auto px-4 md:px-6 text-center mb-12 md:mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold mb-6"
+            className="text-3xl md:text-5xl font-bold mb-6"
           >
             Интерфейс и <span className="text-neon-cyan text-glow">Механики</span>
           </motion.h2>
         </div>
 
         {/* Carousel */}
-        <div className="relative max-w-5xl mx-auto">
-          <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
-            <div className="flex backface-hidden touch-pan-y">
+        <div className="relative w-full">
+          <div className="overflow-hidden px-4 md:px-12 lg:px-24" ref={emblaRef}>
+            <div className="flex backface-hidden touch-pan-y -ml-4 md:-ml-6">
               {slides.map((slide) => (
                 <div 
                   key={slide.id} 
-                  className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_40%] min-w-0 pl-4 pr-4"
+                  className="flex-[0_0_90%] md:flex-[0_0_50%] lg:flex-[0_0_40%] min-w-0 pl-4 md:pl-6"
                 >
                   <motion.div 
                     whileHover={{ scale: 1.02 }}
