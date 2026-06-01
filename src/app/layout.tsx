@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const manrope = Manrope({
+  variable: "--font-space-grotesk", // keeping variable name to not change globals.css
   subsets: ["latin", "cyrillic"],
 });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased bg-midnight-abyss text-comet`}
+      className={`${manrope.variable} ${inter.variable} h-full antialiased bg-midnight-abyss text-comet`}
     >
       <body className="min-h-full flex flex-col relative font-sans selection:bg-neon-violet/30 selection:text-white">
         
