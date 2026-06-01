@@ -1,13 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BrainCircuit, LineChart, Coins, Users, Zap, Award } from "lucide-react";
-
-const features = [
-  {
-    icon: <BrainCircuit className="w-8 h-8 text-neon-cyan" />,
-    title: "Тактика решает",
-    description:
 import { Activity, ShieldCheck, Gamepad2, Coins } from "lucide-react";
 
 export default function FeaturesSection() {
