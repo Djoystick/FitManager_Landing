@@ -31,18 +31,15 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col relative bg-[#050505] text-foreground font-sans">
         {/* Global Neuro-Punk Grid Background */}
         <div 
-          className="fixed inset-0 z-0 pointer-events-none"
+          className="fixed inset-0 z-0 pointer-events-none opacity-50"
           style={{
-            backgroundSize: '40px 40px',
-            backgroundImage: `
-              linear-gradient(to right, rgba(0, 229, 255, 0.1) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(0, 229, 255, 0.1) 1px, transparent 1px)
-            `
+            backgroundImage: 'linear-gradient(to right, #00f0ff22 1px, transparent 1px), linear-gradient(to bottom, #00f0ff22 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
           }}
         ></div>
         
         {/* Subtle animated vignette */}
-        <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#050505_85%)] pointer-events-none"></div>
+        <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#050505_90%)] pointer-events-none"></div>
         
         {/* Main Content */}
         <div className="relative z-10 flex-grow">

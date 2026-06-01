@@ -79,13 +79,13 @@ export default function EngineCarouselSection() {
         </div>
 
         {/* Carousel */}
-        <div className="relative w-full">
-          <div className="overflow-hidden px-4 md:px-12 lg:px-24" ref={emblaRef}>
-            <div className="flex backface-hidden touch-pan-y -ml-4 md:-ml-6">
+        <div className="relative max-w-7xl mx-auto px-4 md:px-6">
+          <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
+            <div className="flex backface-hidden touch-pan-y">
               {slides.map((slide) => (
                 <div 
                   key={slide.id} 
-                  className="flex-[0_0_90%] md:flex-[0_0_50%] lg:flex-[0_0_40%] min-w-0 pl-4 md:pl-6"
+                  className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333333%] min-w-0 pl-4 pr-4 py-4"
                 >
                   <motion.div 
                     whileHover={{ scale: 1.02 }}
