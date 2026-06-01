@@ -120,7 +120,7 @@ export default function HeroSection() {
                 Наш Dev-Блог
               </motion.button>
             </Link>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Feature Highlights row */}
