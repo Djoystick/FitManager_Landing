@@ -1,116 +1,72 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, CircleDashed } from "lucide-react";
+import { TerminalSquare, Target, Rocket, Activity, Box, Database, Sparkles } from "lucide-react";
 
 export default function RoadmapSection() {
-  const roadmap = [
-    {
-      phase: "Фаза 1: Архитектура и Движок",
-      status: "completed",
-      items: [
-        "Telegram TMA и Supabase интеграция",
-        "Продвинутый Матч-движок v3.0 (Микро-дуэли)",
-        "Базовая клубная инфраструктура",
-        "Система глобальных лиг (10 дивизионов)",
-      ]
-    },
-    {
-      phase: "Фаза 2: Закрытая Бета",
-      status: "current",
-      items: [
-        "Синхронизация шагов (Walk-to-Earn / Sweat Bank)",
-        "Экономика v2 (Anti-P2W и Стеклянный потолок)",
-        "Механика старения и 'Form Decay'",
-        "Экспоненциальные зарплаты футболистов",
-      ]
-    },
-    {
-      phase: "Фаза 3: Web3 & Релиз (Q3 2026)",
-      status: "upcoming",
-      items: [
-        "Chemistry & Trait Resonance (Синергия команды)",
-        "TON Connect и Трансферный рынок",
-        "Интеграция пула наград (Prize Waterfall)",
-        "Публичный релиз в каталоге TON Apps",
-      ]
-    },
-    {
-      phase: "Фаза 4: Расширение (Q4 2026)",
-      status: "upcoming",
-      items: [
-        "Глобальные сезонные турниры",
-        "Продвинутая система скаутинга",
-        "Масштабная маркетинговая кампания",
-      ]
-    }
+  const steps = [
+    { icon: <Database className="w-5 h-5" />, title: "Supabase Core", active: false },
+    { icon: <TerminalSquare className="w-5 h-5" />, title: "Match Engine v3", active: false },
+    { icon: <Activity className="w-5 h-5" />, title: "Walk-to-Earn", active: true },
+    { icon: <Sparkles className="w-5 h-5" />, title: "Form Decay", active: false },
+    { icon: <Box className="w-5 h-5" />, title: "TON Connect", active: false },
+    { icon: <Rocket className="w-5 h-5" />, title: "Public Release", active: false },
   ];
 
   return (
-    <section className="py-24 relative z-10 border-t shadow-subtle-3">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
+    <section className="py-24 relative z-10 border-t border-white/5 bg-[#05060f]">
+      
+      <div className="container mx-auto px-4 max-w-6xl">
         
-        <div className="text-center mb-16">
-          <h2 className="text-heading-lg md:text-display font-bold text-ghost-white mb-4">
-            Эволюция платформы
-          </h2>
-          <p className="text-body-lg text-comet max-w-2xl mx-auto opacity-80">
-            Мы строим долгосрочный продукт, а не временный хайп. Наш фокус — стабильная экономика.
-          </p>
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full border border-white/10 bg-[#080911] shadow-subtle">
+             <div className="w-3 h-3 rounded-full bg-midnight-abyss border border-white/30 flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-white/50"></div>
+             </div>
+             <span className="text-sm font-medium text-ghost-white">Roadmap flow supported.</span>
+             <div className="w-3 h-3 rounded-full bg-midnight-abyss border border-white/30"></div>
+          </div>
         </div>
 
-        <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-px before:bg-white/10">
-          {roadmap.map((phase, idx) => (
-            <motion.div 
-              key={idx} 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="relative flex items-start justify-between md:justify-normal md:odd:flex-row-reverse group"
-            >
-              
-              {/* Timeline Node */}
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-midnight-abyss bg-storm-gray shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 relative z-10">
-                {phase.status === "completed" ? (
-                  <Check className="w-4 h-4 text-ghost-white" />
-                ) : phase.status === "current" ? (
-                  <div className="w-2.5 h-2.5 bg-neon-violet rounded-full shadow-[0_0_8px_rgba(102,58,243,0.8)]" />
-                ) : (
-                  <CircleDashed className="w-4 h-4 text-white/30" />
-                )}
-              </div>
-              
-              {/* Card */}
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl bg-white/[0.02] shadow-subtle-4 border border-white/5 hover:bg-white/[0.04] transition-colors mt-1 md:mt-0">
-                <div className="flex items-center gap-3 mb-4">
-                  <h3 className={`text-subheading font-bold ${phase.status === 'current' ? 'text-ghost-white' : 'text-comet'}`}>
-                    {phase.phase}
-                  </h3>
-                  {phase.status === "completed" && (
-                    <span className="px-2 py-0.5 rounded text-[10px] uppercase font-medium bg-white/10 text-ghost-white">
-                      Done
-                    </span>
-                  )}
-                  {phase.status === "current" && (
-                    <span className="px-2 py-0.5 rounded text-[10px] uppercase font-medium bg-neon-violet/20 text-neon-violet border border-neon-violet/30">
-                      In Progress
-                    </span>
-                  )}
-                </div>
-                
-                <ul className="space-y-3">
-                  {phase.items.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-body text-arctic-mist opacity-80">
-                      <span className="text-white/30 mt-1.5 w-1 h-1 rounded-full bg-current shrink-0" /> 
-                      <span className="leading-snug">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        {/* Roadmap Chain */}
+        <div className="relative mt-20 mb-10 flex flex-col md:flex-row items-center justify-center w-full">
+           
+           {/* Desktop Connecting Line */}
+           <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px bg-white/10 -translate-y-1/2 z-0"></div>
+           
+           {/* Mobile Connecting Line */}
+           <div className="md:hidden absolute top-0 bottom-0 left-1/2 w-px bg-white/10 -translate-x-1/2 z-0"></div>
 
-            </motion.div>
-          ))}
+           <div className="flex flex-col md:flex-row items-center justify-between w-full gap-8 md:gap-0 z-10">
+              {steps.map((step, idx) => (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.1 }}
+                  className="flex flex-col items-center group relative"
+                >
+                  {/* Icon Box */}
+                  <div className={`w-16 h-16 md:w-14 md:h-14 rounded-2xl md:rounded-xl flex items-center justify-center shadow-subtle-5 border relative overflow-hidden transition-all duration-300
+                    ${step.active ? 'bg-white/10 border-white/30 text-ghost-white shadow-[0_0_20px_rgba(255,255,255,0.1)]' : 'bg-[#0a0c16] border-white/10 text-white/40 hover:bg-[#121524] hover:text-white/80'}`}>
+                    
+                    {/* Inner glowing effect for active */}
+                    {step.active && <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-50 pointer-events-none"></div>}
+                    {step.icon}
+                  </div>
+
+                  {/* Connecting dots (desktop only, between items) */}
+                  {idx !== steps.length - 1 && (
+                    <div className="hidden md:block absolute top-1/2 -right-[50%] translate-x-1/2 -translate-y-1/2 z-10 w-3 h-3 rounded-full border border-white/30 bg-midnight-abyss"></div>
+                  )}
+
+                  <div className={`mt-4 text-center text-sm font-medium ${step.active ? 'text-ghost-white' : 'text-comet/60'}`}>
+                    {step.title}
+                  </div>
+                </motion.div>
+              ))}
+           </div>
         </div>
 
       </div>

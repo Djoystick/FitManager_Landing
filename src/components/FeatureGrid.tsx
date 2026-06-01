@@ -1,59 +1,42 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Trophy, ShieldCheck, Activity, Cpu, Coins, Users, Zap, Globe2 } from "lucide-react";
+import { ShieldCheck, Users, Zap, Globe2 } from "lucide-react";
 
 export default function FeatureGrid() {
   const features = [
     {
-      icon: <Cpu className="w-6 h-6 text-ghost-white" />,
-      title: "Smart Match Engine",
-      description: "Микро-дуэли характеристик. Учитываем мораль, стамину и сыгранность состава в реальном времени.",
-      badge: "Core Tech"
-    },
-    {
-      icon: <ShieldCheck className="w-6 h-6 text-ghost-white" />,
-      title: "Web3 Экономика",
-      description: "Реальный рынок игроков, P2P обмены и турниры с настоящим пулом наград в TON.",
-      badge: "TON Network"
-    },
-    {
-      icon: <Activity className="w-6 h-6 text-ghost-white" />,
-      title: "Walk-to-Earn",
-      description: "Синхронизируй шаги и конвертируй физическую активность в очки тренировок (Sweat Points).",
-      badge: "Real World"
-    },
-    {
-      icon: <Trophy className="w-6 h-6 text-ghost-white" />,
+      icon: <Globe2 className="w-8 h-8 text-white/50 group-hover:text-white transition-colors" />,
       title: "Глобальные Лиги",
       description: "От Песочницы (Tier 10) до Высшей Лиги. Призовые пулы распределяются прозрачно в смарт-контрактах.",
-      badge: "Competition"
     },
     {
-      icon: <Users className="w-6 h-6 text-ghost-white" />,
-      title: "Сыгранность (Chemistry)",
+      icon: <Users className="w-8 h-8 text-white/50 group-hover:text-white transition-colors" />,
+      title: "Chemistry & Traits",
       description: "Игроки из одной страны или лиги играют лучше вместе. Собирай пазл перков для победы.",
-      badge: "Mechanic"
     },
     {
-      icon: <Zap className="w-6 h-6 text-ghost-white" />,
+      icon: <ShieldCheck className="w-8 h-8 text-white/50 group-hover:text-white transition-colors" />,
+      title: "P2P Market",
+      description: "Полноценный внутренний рынок трансферов. Покупай, арендуй и продавай NFT-игроков напрямую.",
+    },
+    {
+      icon: <Zap className="w-8 h-8 text-white/50 group-hover:text-white transition-colors" />,
       title: "Анти-P2W Механики",
       description: "Система старения, Form Decay и стеклянный потолок не дадут купить победу. Решает интеллект.",
-      badge: "Fair Play"
     }
   ];
 
   return (
-    <section className="py-24 relative z-10">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
+    <section className="py-24 relative z-10 border-t border-white/5">
+      <div className="container mx-auto px-4 md:px-8 max-w-5xl">
         
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 relative">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-12 bg-gradient-to-b from-transparent to-white/20 -mt-16"></div>
           <h2 className="text-heading-lg md:text-display font-bold text-ghost-white mb-4">
-            Продуманный геймплей. <br className="hidden sm:block" /> Никаких тапов.
+            Архитектура победы
           </h2>
-          <p className="text-body-lg text-comet max-w-2xl mx-auto">
-            Архитектура игры строится на глубоком балансе и прозрачной Web3 экономике.
-          </p>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-8 bg-gradient-to-t from-transparent to-white/20 -mb-12"></div>
         </div>
 
         <motion.div 
@@ -67,35 +50,53 @@ export default function FeatureGrid() {
               transition: { staggerChildren: 0.1 }
             }
           }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
         >
           {features.map((feature, idx) => (
             <motion.div
               key={idx}
               variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                hidden: { opacity: 0, scale: 0.95 },
+                visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" } }
               }}
-              className="flex flex-col p-6 rounded-2xl bg-[#bad6f7]/[0.02] shadow-subtle-4 hover:bg-[#bad6f7]/[0.04] transition-colors"
+              className="group flex flex-col p-8 md:p-10 rounded-3xl bg-[#080911] border border-white/5 shadow-subtle-4 relative overflow-hidden h-[300px] items-center justify-center text-center hover:bg-[#0a0b14] transition-colors"
             >
-              <div className="flex items-start justify-between mb-8">
-                <div className="w-12 h-12 rounded-full border border-white/10 shadow-subtle-3 flex items-center justify-center bg-midnight-abyss">
+              {/* Corner Dots */}
+              <div className="absolute top-4 left-4 w-1 h-1 bg-white/20 rounded-full" />
+              <div className="absolute top-4 right-4 w-1 h-1 bg-white/20 rounded-full" />
+              <div className="absolute bottom-4 left-4 w-1 h-1 bg-white/20 rounded-full" />
+              <div className="absolute bottom-4 right-4 w-1 h-1 bg-white/20 rounded-full" />
+
+              {/* Faint Background Circuitry SVG (Abstract) */}
+              <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 150H100L150 100H250L300 150H400" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
+                <path d="M0 200H80L120 160H280L320 200H400" stroke="white" strokeWidth="1" strokeLinejoin="round"/>
+                <circle cx="150" cy="100" r="4" fill="white"/>
+                <circle cx="250" cy="100" r="4" fill="white"/>
+              </svg>
+
+              {/* Embossed Center Plaque */}
+              <div className="mb-6 p-4 rounded-2xl bg-[#0a0c16] shadow-embossed border border-white/5 relative z-10 group-hover:scale-105 transition-transform duration-500">
+                <div className="w-16 h-16 rounded-xl bg-midnight-abyss flex items-center justify-center shadow-subtle-5 border border-white/5">
                   {feature.icon}
-                </div>
-                <div className="px-2 py-1 rounded-md bg-midnight-abyss shadow-subtle text-[10px] uppercase tracking-wider text-arctic-mist font-medium">
-                  {feature.badge}
                 </div>
               </div>
               
-              <h3 className="text-subheading font-semibold text-ghost-white mb-3">
+              <h3 className="text-heading font-bold text-ghost-white mb-2 relative z-10 group-hover:text-neon-violet transition-colors">
                 {feature.title}
               </h3>
-              <p className="text-body text-comet opacity-80 leading-relaxed mt-auto">
+              <p className="text-body text-comet/60 max-w-sm relative z-10">
                 {feature.description}
               </p>
             </motion.div>
           ))}
         </motion.div>
+
+        <div className="mt-16 text-center">
+          <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-white/10 bg-[#080911] shadow-subtle text-caption text-comet cursor-pointer hover:bg-white/5 transition-colors">
+             Follow @FitManagerWeb3 on Telegram
+          </div>
+        </div>
 
       </div>
     </section>

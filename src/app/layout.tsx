@@ -27,7 +27,9 @@ export default function RootLayout({
       lang="en"
       className={`${manrope.variable} ${inter.variable} h-full antialiased bg-midnight-abyss text-comet`}
     >
-      <body className="min-h-full flex flex-col relative font-sans selection:bg-neon-violet/30 selection:text-white">
+      <body className="min-h-full flex flex-col relative font-sans selection:bg-neon-violet/30 selection:text-white bg-grid-pattern">
+        {/* Top Spotlight */}
+        <div className="absolute top-0 left-0 right-0 h-[600px] spotlight pointer-events-none z-0"></div>
         
         {children}
       </body>

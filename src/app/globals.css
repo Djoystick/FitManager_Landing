@@ -41,6 +41,7 @@
   --radius-sm: 2px;
   --radius-md: 6px;
   --radius-lg: 10px;
+  --radius-xl: 12px;
   --radius-2xl: 16px;
   --radius-3xl: 24px;
   --radius-pill: 999px;
@@ -55,6 +56,7 @@
   --shadow-subtle-5: rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
   --shadow-subtle-6: rgba(216, 236, 248, 0.2) 0px 1px 1px 0px inset, rgba(168, 216, 245, 0.06) 0px 24px 48px 0px inset, rgba(0, 0, 0, 0.3) 0px 16px 32px 0px;
   --shadow-subtle-7: rgba(216, 236, 248, 0.2) 0px 1px 1px 0px inset, rgba(168, 216, 245, 0.06) 0px 24px 48px 0px inset;
+  --shadow-embossed: rgba(255, 255, 255, 0.15) 0px 1px 1px 0px inset, rgba(0, 0, 0, 0.5) 0px 2px 4px 0px;
 }
 
 @layer base {
@@ -75,7 +77,6 @@
   }
 }
 
-/* Typography Scale utilities that map to standard Tailwind classes, adapted for the new font */
 @layer utilities {
   .text-display-xl {
     font-size: 48px;
@@ -109,6 +110,19 @@
     font-size: 12px;
     line-height: 1.5;
   }
-}
 
-/* Remove old animations that don't fit */
+  .bg-grid-pattern {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  
+  .bg-grid-crosshairs {
+    background-image: radial-gradient(circle at center, rgba(255,255,255,0.2) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .spotlight {
+    background: radial-gradient(ellipse at top, rgba(216, 236, 248, 0.15), transparent 60%);
+  }
+}
