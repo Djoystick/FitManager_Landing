@@ -2,107 +2,287 @@
 
 import { motion } from "framer-motion";
 import { useLanguage } from "../contexts/LanguageContext";
-import { Server, Database, Box, Activity, Users } from "lucide-react";
 
-export default function ArchitectureHub() {
+// ── SVG Architecture Hub ──────────────────────────────────────
+// Central node with 6 satellite nodes connected by circuit-like paths
+
+const NODES = [
+  { id: "engine", angle: 270, radius: 140, color: "#663af3", glow: true },
+  { id: "db",     angle: 330, radius: 140, color: "#3ecf8e", glow: false },
+  { id: "ton",    angle: 30,  radius: 140, color: "#0098ea", glow: false },
+  { id: "tg",     angle: 90,  radius: 140, color: "#2ca5e0", glow: false },
+  { id: "cron",   angle: 150, radius: 140, color: "#fbbf24", glow: false },
+  { id: "auth",   angle: 210, radius: 140, color: "#f472b6", glow: false },
+];
+
+function toXY(angle: number, radius: number, cx = 200, cy = 200) {
+  const rad = ((angle - 90) * Math.PI) / 180;
+  return {
+    x: cx + radius * Math.cos(rad),
+    y: cy + radius * Math.sin(rad),
+  };
+}
+
+function ArchSVG({ t }: { t: (k: string) => string }) {
+  return (
+    <svg
+      viewBox="0 0 400 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full max-w-[380px] mx-auto"
+      aria-label="Architecture hub diagram"
+    >
+      <defs>
+        {NODES.map((n) => (
+          <radialGradient key={n.id} id={`grd-${n.id}`} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor={n.color} stopOpacity="0.3" />
+            <stop offset="100%" stopColor={n.color} stopOpacity="0" />
+          </radialGradient>
+        ))}
+        <radialGradient id="grd-center" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#663af3" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#663af3" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* ── Faint rings ── */}
+      <circle cx="200" cy="200" r="140" stroke="var(--border-subtle)" strokeWidth="1" strokeDasharray="4 8" />
+      <circle cx="200" cy="200" r="80"  stroke="var(--border-subtle)" strokeWidth="1" />
+
+      {/* ── Connection paths with corner-bend aesthetic ── */}
+      {NODES.map((n) => {
+        const { x, y } = toXY(n.angle, n.radius);
+        const mid = toXY(n.angle, 80);
+        return (
+          <motion.path
+            key={n.id}
+            d={`M200,200 L${mid.x},${mid.y} L${x},${y}`}
+            stroke={n.color}
+            strokeWidth="1.5"
+            strokeOpacity="0.5"
+            strokeLinecap="round"
+            initial={{ pathLength: 0, opacity: 0 }}
+            whileInView={{ pathLength: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: NODES.indexOf(n) * 0.1 }}
+          />
+        );
+      })}
+
+      {/* ── Center glow ── */}
+      <circle cx="200" cy="200" r="50" fill="url(#grd-center)" />
+
+      {/* ── Center hub ── */}
+      <rect
+        x="168" y="168" width="64" height="64" rx="12"
+        fill="var(--bg-card-solid)"
+        stroke="#663af3"
+        strokeWidth="1.5"
+        strokeOpacity="0.7"
+      />
+      {/* CPU icon lines */}
+      <line x1="182" y1="180" x2="218" y2="180" stroke="#663af3" strokeWidth="1.5" strokeOpacity="0.9" strokeLinecap="round" />
+      <line x1="182" y1="190" x2="218" y2="190" stroke="#663af3" strokeWidth="1.5" strokeOpacity="0.9" strokeLinecap="round" />
+      <line x1="182" y1="200" x2="218" y2="200" stroke="#663af3" strokeWidth="1.5" strokeOpacity="0.9" strokeLinecap="round" />
+      <line x1="182" y1="210" x2="218" y2="210" stroke="#663af3" strokeWidth="1.5" strokeOpacity="0.9" strokeLinecap="round" />
+      <text x="200" y="222" textAnchor="middle" fontSize="8" fill="#663af3" fontFamily="'IBM Plex Mono', monospace" opacity="0.8">
+        Match Engine
+      </text>
+
+      {/* ── Satellite nodes ── */}
+      {NODES.map((n, i) => {
+        const { x, y } = toXY(n.angle, n.radius);
+        const labelPos = toXY(n.angle, n.radius + 22);
+        const descPos  = toXY(n.angle, n.radius + 32);
+        const keyBase  = `architecture.node_${n.id}`;
+
+        return (
+          <motion.g
+            key={n.id}
+            initial={{ opacity: 0, scale: 0.6 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: i * 0.1 }}
+          >
+            {/* Glow */}
+            <circle cx={x} cy={y} r="22" fill={`url(#grd-${n.id})`} />
+            {/* Node box */}
+            <rect
+              x={x - 18} y={y - 18} width="36" height="36" rx="7"
+              fill="var(--bg-card-solid)"
+              stroke={n.color}
+              strokeWidth="1.2"
+              strokeOpacity="0.6"
+            />
+            {/* Dot */}
+            <circle cx={x} cy={y} r="4" fill={n.color} opacity="0.85" />
+
+            {/* Labels */}
+            <text
+              x={labelPos.x} y={labelPos.y}
+              textAnchor="middle"
+              fontSize="7"
+              fontWeight="600"
+              fill="var(--text-primary)"
+              fontFamily="'Space Grotesk', sans-serif"
+              opacity="0.95"
+            >
+              {t(`${keyBase}`)}
+            </text>
+            <text
+              x={descPos.x} y={descPos.y}
+              textAnchor="middle"
+              fontSize="5.5"
+              fill="var(--text-dim)"
+              fontFamily="'IBM Plex Mono', monospace"
+              opacity="0.7"
+            >
+              {t(`${keyBase}_desc`)}
+            </text>
+          </motion.g>
+        );
+      })}
+
+      {/* ── Data flow dots animation ── */}
+      {NODES.slice(0, 3).map((n) => {
+        const end = toXY(n.angle, n.radius - 20);
+        return (
+          <motion.circle
+            key={`dot-${n.id}`}
+            r="2.5"
+            fill={n.color}
+            initial={{ cx: 200, cy: 200, opacity: 0 }}
+            animate={{
+              cx: [200, end.x],
+              cy: [200, end.y],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: NODES.indexOf(n) * 0.7,
+              ease: "easeInOut",
+            }}
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
+// ──────────────────────────────────────────────────────────────
+// Main Section
+// ──────────────────────────────────────────────────────────────
+export default function ArchitectureSection() {
   const { t } = useLanguage();
 
+  const techStack = [
+    { label: "Next.js 15",          sub: "App Router + API Routes",    color: "#ffffff" },
+    { label: "React 19",            sub: "Server & Client Components",  color: "#61dafb" },
+    { label: "Supabase",            sub: "PostgreSQL + RPC + Triggers", color: "#3ecf8e" },
+    { label: "TON Connect",         sub: "Blockchain + NFT Minting",    color: "#0098ea" },
+    { label: "Framer Motion",       sub: "UI Animations",              color: "#ff0055" },
+    { label: "cron-job.org",        sub: "Match automation",           color: "#fbbf24" },
+    { label: "Ed25519",             sub: "Telegram Auth Verification", color: "#f472b6" },
+    { label: "TypeScript",          sub: "End-to-end type safety",     color: "#3178c6" },
+  ];
+
   return (
-    <section className="py-12 md:py-16 relative z-10">
-      <div className="container mx-auto px-4 max-w-6xl">
-        
-        <div className="text-center mb-16 relative">
-          <h2 className="text-heading-lg md:text-display font-bold text-text-main mb-4">
-            {t('architecture.title')}
-          </h2>
-          <p className="text-body-lg text-text-muted max-w-2xl mx-auto">
-            {t('architecture.subtitle')}
+    <section className="section relative z-10">
+      <div className="section-divider mb-12" aria-hidden="true" />
+
+      <div className="container-main">
+        {/* Header */}
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="accent-line" />
+              <span
+                className="text-caption font-semibold uppercase tracking-wider"
+                style={{ color: "var(--color-neon-violet)" }}
+              >
+                Architecture
+              </span>
+            </div>
+            <h2
+              className="text-heading-lg font-bold"
+              style={{ color: "var(--text-primary)" }}
+            >
+              {t("architecture.title")}
+            </h2>
+          </div>
+          <p
+            className="text-body max-w-sm"
+            style={{ color: "var(--text-muted)" }}
+          >
+            {t("architecture.subtitle")}
           </p>
         </div>
 
-        {/* Central Hub Architecture (Screenshot 1 Replication) */}
-        <div className="relative w-full max-w-4xl mx-auto h-[600px] flex items-center justify-center">
-          
-          {/* Background Circuit SVG */}
-          <div className="absolute inset-0 z-0 flex items-center justify-center opacity-30 dark:opacity-50 pointer-events-none">
-             <svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M400 200 L200 200 L150 150 L100 150" stroke="var(--border-strong)" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M400 200 L200 200 L150 250 L100 250" stroke="var(--border-strong)" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M400 200 L600 200 L650 150 L700 150" stroke="var(--border-strong)" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M400 200 L600 200 L650 250 L700 250" stroke="var(--border-strong)" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M400 200 L400 300 L350 350 L300 350" stroke="var(--border-strong)" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M400 200 L400 300 L450 350 L500 350" stroke="var(--border-strong)" strokeWidth="2" strokeLinejoin="round"/>
-                
-                {/* Dots on paths */}
-                <circle cx="100" cy="150" r="3" fill="var(--border-strong)"/>
-                <circle cx="100" cy="250" r="3" fill="var(--border-strong)"/>
-                <circle cx="700" cy="150" r="3" fill="var(--border-strong)"/>
-                <circle cx="700" cy="250" r="3" fill="var(--border-strong)"/>
-                <circle cx="300" cy="350" r="3" fill="var(--border-strong)"/>
-                <circle cx="500" cy="350" r="3" fill="var(--border-strong)"/>
-             </svg>
-          </div>
-
-          {/* Center Chip */}
-          <motion.div 
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          {/* SVG Hub */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="absolute z-20 w-48 h-48 md:w-56 md:h-56 rounded-3xl bg-bg-card-solid border border-border-strong shadow-subtle-4 flex flex-col items-center justify-center p-4 backdrop-blur-xl"
+            transition={{ duration: 0.6 }}
+            className="card-glass p-4"
+            style={{ borderRadius: "var(--radius-lg)" }}
           >
-            <div className="absolute inset-0 rounded-3xl border-4 border-bg-main pointer-events-none"></div>
-            <div className="w-24 h-24 rounded-2xl bg-gradient-to-b from-neon-violet/20 to-transparent flex items-center justify-center border border-border-strong shadow-subtle-5 mb-4">
-               <Server className="w-12 h-12 text-neon-violet drop-shadow-[0_0_15px_rgba(102,58,243,0.8)]" />
-            </div>
-            <span className="text-text-main font-bold text-lg">{t('architecture.hub_core')}</span>
+            <ArchSVG t={t} />
           </motion.div>
 
-          {/* Top Left (Supabase) */}
-          <motion.div 
-            initial={{ x: 50, y: 50, opacity: 0 }}
-            whileInView={{ x: -220, y: -100, opacity: 1 }}
-            viewport={{ once: true }}
-            className="absolute z-10 w-32 h-32 rounded-2xl bg-bg-card-hover border border-border-subtle shadow-sm flex flex-col items-center justify-center"
+          {/* Tech stack list */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.05 } },
+            }}
+            className="flex flex-col gap-2"
           >
-            <Database className="w-8 h-8 text-text-muted mb-2" />
-            <span className="text-text-main text-xs font-medium">{t('architecture.hub_supabase')}</span>
+            {techStack.map(({ label, sub, color }) => (
+              <motion.div
+                key={label}
+                variants={{
+                  hidden: { opacity: 0, x: 12 },
+                  visible: { opacity: 1, x: 0, transition: { duration: 0.35 } },
+                }}
+                className="flex items-center gap-3 p-3 rounded-md group transition-all duration-150 cursor-default"
+                style={{
+                  border: "1px solid var(--border-subtle)",
+                  background: "var(--bg-card)",
+                  borderRadius: "var(--radius-md)",
+                }}
+                whileHover={{ background: "var(--bg-card-hover)" }}
+              >
+                <div
+                  className="w-2 h-2 rounded-full shrink-0"
+                  style={{ background: color, boxShadow: `0 0 6px ${color}60` }}
+                />
+                <div className="flex-1 min-w-0">
+                  <div
+                    className="text-body font-medium"
+                    style={{ color: "var(--text-primary)" }}
+                  >
+                    {label}
+                  </div>
+                  <div className="text-caption" style={{ color: "var(--text-dim)" }}>
+                    {sub}
+                  </div>
+                </div>
+                <div
+                  className="text-mono-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ color, fontSize: "10px" }}
+                >
+                  →
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
-
-          {/* Bottom Left (Users) */}
-          <motion.div 
-            initial={{ x: 50, y: -50, opacity: 0 }}
-            whileInView={{ x: -220, y: 100, opacity: 1 }}
-            viewport={{ once: true }}
-            className="absolute z-10 w-32 h-32 rounded-2xl bg-bg-card-hover border border-border-subtle shadow-sm flex flex-col items-center justify-center"
-          >
-            <Users className="w-8 h-8 text-text-muted mb-2" />
-            <span className="text-text-main text-xs font-medium">{t('architecture.hub_users')}</span>
-          </motion.div>
-
-          {/* Top Right (TON) */}
-          <motion.div 
-            initial={{ x: -50, y: 50, opacity: 0 }}
-            whileInView={{ x: 220, y: -100, opacity: 1 }}
-            viewport={{ once: true }}
-            className="absolute z-10 w-32 h-32 rounded-2xl bg-bg-card-hover border border-border-subtle shadow-sm flex flex-col items-center justify-center"
-          >
-            <Box className="w-8 h-8 text-text-muted mb-2" />
-            <span className="text-text-main text-xs font-medium">{t('architecture.hub_ton')}</span>
-          </motion.div>
-
-          {/* Bottom Right (Analytics) */}
-          <motion.div 
-            initial={{ x: -50, y: -50, opacity: 0 }}
-            whileInView={{ x: 220, y: 100, opacity: 1 }}
-            viewport={{ once: true }}
-            className="absolute z-10 w-32 h-32 rounded-2xl bg-bg-card-hover border border-border-subtle shadow-sm flex flex-col items-center justify-center"
-          >
-            <Activity className="w-8 h-8 text-text-muted mb-2" />
-            <span className="text-text-main text-xs font-medium">{t('architecture.hub_analytics')}</span>
-          </motion.div>
-
         </div>
-
       </div>
     </section>
   );

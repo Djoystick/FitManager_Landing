@@ -1,78 +1,194 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TerminalSquare, Target, Rocket, Activity, Box, Database, Sparkles } from "lucide-react";
-
 import { useLanguage } from "../contexts/LanguageContext";
+import { CheckCircle2, Circle, Clock, Pause } from "lucide-react";
+
+type PhaseStatus = "done" | "active" | "planned" | "frozen";
+
+interface Phase {
+  key: string;
+  status: PhaseStatus;
+  quarter?: string;
+}
+
+const PHASES: Phase[] = [
+  { key: "phase1",  status: "done" },
+  { key: "phase5",  status: "done" },
+  { key: "phase55", status: "active" },
+  { key: "phase7",  status: "planned" },
+  { key: "phase6",  status: "frozen" },
+  { key: "phase8",  status: "planned" },
+  { key: "q3",      status: "planned", quarter: "Q3 2026" },
+  { key: "q4",      status: "planned", quarter: "Q4 2026" },
+  { key: "future",  status: "planned", quarter: "2027+" },
+];
+
+const STATUS_CONFIG: Record<PhaseStatus, {
+  icon: React.ReactNode;
+  badgeClass: string;
+  dotColor: string;
+  lineColor: string;
+}> = {
+  done: {
+    icon: <CheckCircle2 size={14} />,
+    badgeClass: "badge-green",
+    dotColor: "#34d399",
+    lineColor: "#34d399",
+  },
+  active: {
+    icon: <Circle size={14} />,
+    badgeClass: "badge-accent",
+    dotColor: "var(--color-neon-violet)",
+    lineColor: "var(--color-neon-violet)",
+  },
+  planned: {
+    icon: <Clock size={14} />,
+    badgeClass: "",
+    dotColor: "var(--border-strong)",
+    lineColor: "var(--border-subtle)",
+  },
+  frozen: {
+    icon: <Pause size={14} />,
+    badgeClass: "badge-amber",
+    dotColor: "#fbbf24",
+    lineColor: "#fbbf24",
+  },
+};
 
 export default function RoadmapSection() {
   const { t } = useLanguage();
 
-  const steps = [
-    { icon: <Database className="w-5 h-5" />, title: t('roadmap.step1'), active: false },
-    { icon: <TerminalSquare className="w-5 h-5" />, title: t('roadmap.step2'), active: false },
-    { icon: <Activity className="w-5 h-5" />, title: t('roadmap.step3'), active: true },
-    { icon: <Sparkles className="w-5 h-5" />, title: t('roadmap.step4'), active: false },
-    { icon: <Box className="w-5 h-5" />, title: t('roadmap.step5'), active: false },
-    { icon: <Rocket className="w-5 h-5" />, title: t('roadmap.step6'), active: false },
-  ];
-
   return (
-    <section className="py-24 relative z-10 border-t border-border-strong bg-bg-main transition-colors duration-300">
-      
-      <div className="container mx-auto px-4 max-w-6xl">
-        
-        <div className="flex justify-center mb-8">
-          <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full border border-border-strong bg-bg-card-solid shadow-subtle">
-             <div className="w-3 h-3 rounded-full bg-bg-main border border-border-strong flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-border-strong"></div>
-             </div>
-             <span className="text-sm font-medium text-text-main">{t('roadmap.supported')}</span>
-             <div className="w-3 h-3 rounded-full bg-bg-main border border-border-strong"></div>
+    <section id="roadmap" className="section relative z-10">
+      <div className="section-divider mb-12" aria-hidden="true" />
+
+      <div className="container-main">
+        {/* Header */}
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="accent-line" />
+              <span
+                className="text-caption font-semibold uppercase tracking-wider"
+                style={{ color: "var(--color-neon-violet)" }}
+              >
+                {t("roadmap.title")}
+              </span>
+            </div>
+            <h2
+              className="text-heading-lg font-bold"
+              style={{ color: "var(--text-primary)" }}
+            >
+              {t("roadmap.title")}
+            </h2>
           </div>
+          <p className="text-body max-w-sm" style={{ color: "var(--text-muted)" }}>
+            {t("roadmap.subtitle")}
+          </p>
         </div>
 
-        {/* Roadmap Chain */}
-        <div className="relative mt-20 mb-10 flex flex-col md:flex-row items-center justify-center w-full">
-           
-           {/* Desktop Connecting Line */}
-           <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px bg-border-strong -translate-y-1/2 z-0"></div>
-           
-           {/* Mobile Connecting Line */}
-           <div className="md:hidden absolute top-0 bottom-0 left-1/2 w-px bg-border-strong -translate-x-1/2 z-0"></div>
+        {/* Timeline */}
+        <div className="relative flex flex-col gap-0">
 
-           <div className="flex flex-col md:flex-row items-center justify-between w-full gap-8 md:gap-0 z-10">
-              {steps.map((step, idx) => (
-                <motion.div 
-                  key={idx}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="flex flex-col items-center group relative"
-                >
-                  {/* Icon Box */}
-                  <div className={`w-16 h-16 md:w-14 md:h-14 rounded-2xl md:rounded-xl flex items-center justify-center shadow-subtle-5 border relative overflow-hidden transition-all duration-300
-                    ${step.active ? 'bg-border-strong border-border-strong text-text-main shadow-md' : 'bg-bg-card border-border-strong text-text-muted hover:bg-bg-card-hover hover:text-text-main'}`}>
-                    
-                    {/* Inner glowing effect for active */}
-                    {step.active && <div className="absolute inset-0 bg-gradient-to-b from-border-subtle to-transparent opacity-50 pointer-events-none"></div>}
-                    {step.icon}
-                  </div>
+          {PHASES.map((phase, i) => {
+            const cfg = STATUS_CONFIG[phase.status];
+            const isLast = i === PHASES.length - 1;
+            const label = t(`roadmap.${phase.key}_label`);
+            const title = t(`roadmap.${phase.key}_title`);
+            const desc  = t(`roadmap.${phase.key}_desc`);
 
-                  {/* Connecting dots (desktop only, between items) */}
-                  {idx !== steps.length - 1 && (
-                    <div className="hidden md:block absolute top-1/2 -right-[50%] translate-x-1/2 -translate-y-1/2 z-10 w-3 h-3 rounded-full border border-border-strong bg-bg-main"></div>
+            return (
+              <motion.div
+                key={phase.key}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.35, delay: i * 0.06 }}
+                className="flex gap-4"
+              >
+                {/* Timeline axis */}
+                <div className="flex flex-col items-center shrink-0 w-8">
+                  {/* Dot */}
+                  <motion.div
+                    className="w-3 h-3 rounded-full border-2 mt-1 shrink-0 z-10"
+                    style={{
+                      borderColor: cfg.dotColor,
+                      background:
+                        phase.status === "active"
+                          ? cfg.dotColor
+                          : "var(--bg-page)",
+                    }}
+                    animate={
+                      phase.status === "active"
+                        ? { boxShadow: [`0 0 0 0 ${cfg.dotColor}40`, `0 0 0 6px ${cfg.dotColor}00`] }
+                        : {}
+                    }
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                  {/* Connector line */}
+                  {!isLast && (
+                    <div
+                      className="flex-1 w-px mt-1"
+                      style={{
+                        background: `linear-gradient(to bottom, ${cfg.lineColor}60, var(--border-subtle))`,
+                        minHeight: "32px",
+                      }}
+                    />
                   )}
+                </div>
 
-                  <div className={`mt-4 text-center text-sm font-medium ${step.active ? 'text-text-main' : 'text-text-muted'}`}>
-                    {step.title}
+                {/* Content */}
+                <div className="flex-1 pb-5">
+                  <div className="flex flex-wrap items-center gap-2 mb-0.5">
+                    {/* Quarter tag if present */}
+                    {phase.quarter && (
+                      <span
+                        className="text-mono-sm font-medium"
+                        style={{
+                          color: "var(--color-neon-violet)",
+                          fontSize: "10px",
+                          background: "rgba(102,58,243,0.1)",
+                          padding: "1px 6px",
+                          borderRadius: "4px",
+                          border: "1px solid rgba(102,58,243,0.2)",
+                        }}
+                      >
+                        {phase.quarter}
+                      </span>
+                    )}
+                    <h3
+                      className="text-body font-semibold"
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        color:
+                          phase.status === "active"
+                            ? "var(--text-primary)"
+                            : phase.status === "done"
+                            ? "var(--text-secondary)"
+                            : "var(--text-muted)",
+                      }}
+                    >
+                      {title}
+                    </h3>
+                    <span
+                      className={`badge ${cfg.badgeClass} flex items-center gap-1`}
+                    >
+                      {cfg.icon}
+                      {label}
+                    </span>
                   </div>
-                </motion.div>
-              ))}
-           </div>
+                  <p
+                    className="text-caption"
+                    style={{ color: "var(--text-dim)", maxWidth: "580px" }}
+                  >
+                    {desc}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-
       </div>
     </section>
   );

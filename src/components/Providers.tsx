@@ -5,10 +5,13 @@ import { LanguageProvider } from "../contexts/LanguageContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-      <LanguageProvider>
-        {children}
-      </LanguageProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="dark"
+      enableSystem={false}
+      storageKey="fitmanager-theme"
+    >
+      <LanguageProvider>{children}</LanguageProvider>
     </ThemeProvider>
   );
 }

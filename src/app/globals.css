@@ -1,94 +1,445 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   MIDNIGHT COMMAND CENTER — Design System (per DESIGN.md)
+───────────────────────────────────────────────────────────── */
+
 :root {
-  --bg-main: #05060f;
-  --bg-card: rgba(10, 12, 22, 0.8);
-  --bg-card-solid: #080911;
-  --bg-card-hover: #0a0b14;
-  --text-main: #ffffff;
-  --text-muted: rgba(216, 236, 248, 0.6);
-  --border-subtle: rgba(255, 255, 255, 0.05);
-  --border-strong: rgba(255, 255, 255, 0.1);
-  --grid-color: rgba(255, 255, 255, 0.03);
-  --spotlight-color: rgba(216, 236, 248, 0.15);
-  --neon-violet: #663af3;
-  --shadow-color: rgba(6, 6, 14, 0.7);
+  /* ── Colors ──────────────────────────────────────────────── */
+  --color-midnight-abyss: #05060f;
+  --color-ghost-white: #ffffff;
+  --color-storm-gray: #2f3443;
+  --color-comet: #d8ecf8;
+  --color-arctic-mist: #d1e4fa;
+  --color-celestial-light: #b6d9fc;
+  --color-azure-glow: #c7d3ea;
+  --color-slate-dew: #3f4959;
+  --color-whisper-blue: #9da7ba;
+  --color-neon-violet: #663af3;
+  --color-interstellar-gray: #81899b;
+
+  /* Gradients */
+  --gradient-twilight: linear-gradient(0deg, rgb(216, 236, 248) 0%, rgb(152, 192, 239) 100%);
+  --gradient-system-border: linear-gradient(90deg, rgba(0,0,0,0), rgba(186,215,247,0.12), rgba(0,0,0,0));
+  --gradient-violet-glow: radial-gradient(ellipse at 50% 0%, rgba(102,58,243,0.18) 0%, transparent 70%);
+  --gradient-card-bg: linear-gradient(135deg, rgba(186,214,247,0.04) 0%, rgba(5,6,15,0.6) 100%);
+
+  /* ── Semantic Surface Tokens ─────────────────────────────── */
+  --bg-page: var(--color-midnight-abyss);
+  --bg-card: rgba(186, 214, 247, 0.03);
+  --bg-card-solid: rgba(8, 9, 20, 0.95);
+  --bg-card-hover: rgba(186, 214, 247, 0.06);
+  --bg-input: rgba(199, 211, 234, 0.06);
+
+  --text-primary: var(--color-ghost-white);
+  --text-secondary: var(--color-comet);
+  --text-muted: var(--color-azure-glow);
+  --text-dim: var(--color-interstellar-gray);
+  --text-placeholder: var(--color-whisper-blue);
+
+  --border-subtle: rgba(186, 215, 247, 0.08);
+  --border-strong: rgba(186, 215, 247, 0.14);
+  --border-focus: rgba(182, 217, 252, 0.4);
+  --accent: var(--color-neon-violet);
+
+  /* ── Shadows (Elevation System) ──────────────────────────── */
+  --shadow-sm: rgba(186, 207, 247, 0.32) 0px 0px 6px 0px;
+  --shadow-md: rgba(238, 186, 247, 0.24) 0px 0px 12px 0px;
+  --shadow-card: rgba(199, 211, 234, 0.12) 0px 1px 1px 0px inset,
+                 rgba(199, 211, 234, 0.05) 0px 24px 48px 0px inset,
+                 rgba(6, 6, 14, 0.7) 0px 24px 32px 0px;
+  --shadow-card-elevated: rgba(216, 236, 248, 0.2) 0px 1px 1px 0px inset,
+                          rgba(168, 216, 245, 0.06) 0px 24px 48px 0px inset,
+                          rgba(0, 0, 0, 0.3) 0px 16px 32px 0px;
+  --shadow-border-inset: rgba(186, 215, 247, 0.12) 0px 0px 0px 1px inset;
+  --shadow-border-inset-2: rgba(186, 214, 247, 0.06) 0px 0px 0px 1px inset;
+  --shadow-icon-glow: rgba(186, 207, 247, 0.32) 0px 0px 6px 0px;
+  --shadow-accent-glow: rgba(102, 58, 243, 0.4) 0px 0px 20px 0px;
+  --shadow-white-inset: rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-display: var(--font-space-grotesk), 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), 'IBM Plex Mono', 'Courier New', monospace;
+
+  /* ── Spacing ─────────────────────────────────────────────── */
+  --section-gap: 56px;
+  --card-padding: 20px;
+  --element-gap: 8px;
+
+  /* ── Radius ──────────────────────────────────────────────── */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-pill: 999px;
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --container-max: 1140px;
+  --container-pad: 20px;
+
+  /* ── Grid Pattern ────────────────────────────────────────── */
+  --grid-color: rgba(186, 215, 247, 0.025);
 }
 
+/* ── Light Mode Override ────────────────────────────────────── */
 .light {
-  --bg-main: #f8fafc;
-  --bg-card: rgba(255, 255, 255, 0.8);
-  --bg-card-solid: #ffffff;
-  --bg-card-hover: #f1f5f9;
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --border-subtle: rgba(0, 0, 0, 0.05);
-  --border-strong: rgba(0, 0, 0, 0.1);
-  --grid-color: rgba(0, 0, 0, 0.03);
-  --spotlight-color: rgba(102, 58, 243, 0.05);
-  --neon-violet: #4f46e5;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --bg-page: #f1f4f9;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-card-solid: rgba(255, 255, 255, 0.95);
+  --bg-card-hover: rgba(255, 255, 255, 0.9);
+  --bg-input: rgba(0, 0, 0, 0.04);
+  --text-primary: #0a0c18;
+  --text-secondary: #1e2a3d;
+  --text-muted: #4a5568;
+  --text-dim: #718096;
+  --text-placeholder: #a0aec0;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-strong: rgba(0, 0, 0, 0.10);
+  --border-focus: rgba(102, 58, 243, 0.3);
+  --shadow-card: rgba(0, 0, 0, 0.08) 0px 1px 1px 0px inset,
+                 rgba(0, 0, 0, 0.04) 0px 24px 48px 0px inset,
+                 rgba(0, 0, 0, 0.08) 0px 8px 24px 0px;
+  --shadow-card-elevated: rgba(0, 0, 0, 0.1) 0px 1px 1px 0px inset,
+                          rgba(0, 0, 0, 0.06) 0px 24px 48px 0px inset,
+                          rgba(0, 0, 0, 0.12) 0px 16px 32px 0px;
+  --shadow-border-inset: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px inset;
+  --shadow-border-inset-2: rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset;
+  --shadow-icon-glow: rgba(102, 58, 243, 0.15) 0px 0px 12px 0px;
+  --shadow-accent-glow: rgba(102, 58, 243, 0.2) 0px 0px 20px 0px;
+  --gradient-violet-glow: radial-gradient(ellipse at 50% 0%, rgba(102,58,243,0.06) 0%, transparent 70%);
+  --grid-color: rgba(0, 0, 0, 0.04);
+  --shadow-white-inset: rgba(0, 0, 0, 0.06) 0px 0px 0px 1px inset;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Tailwind @theme Registration
+───────────────────────────────────────────────────────────── */
 @theme inline {
-  /* Colors */
-  --color-bg-main: var(--bg-main);
+  --color-bg-page: var(--bg-page);
   --color-bg-card: var(--bg-card);
   --color-bg-card-solid: var(--bg-card-solid);
   --color-bg-card-hover: var(--bg-card-hover);
-  --color-text-main: var(--text-main);
+  --color-bg-input: var(--bg-input);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
+  --color-text-dim: var(--text-dim);
   --color-border-subtle: var(--border-subtle);
   --color-border-strong: var(--border-strong);
-  --color-neon-violet: var(--neon-violet);
+  --color-accent: var(--accent);
+  --color-neon-violet: var(--color-neon-violet);
+  --color-comet: var(--color-comet);
+  --color-arctic-mist: var(--color-arctic-mist);
+  --color-celestial-light: var(--color-celestial-light);
+  --color-whisper-blue: var(--color-whisper-blue);
+  --color-midnight-abyss: var(--color-midnight-abyss);
 
-  /* Typography */
-  --font-untitled-sans: var(--font-inter), 'Untitled Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-aeonikpro: var(--font-space-grotesk), 'aeonikPro', ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+  --font-sans: var(--font-body);
 
-  /* Shadows */
-  --shadow-subtle: var(--border-subtle) 0px 0px 0px 1px inset;
-  --shadow-subtle-3: var(--border-subtle) 0px 0px 0px 1px inset;
-  --shadow-subtle-4: var(--border-strong) 0px 1px 1px 0px inset, var(--shadow-color) 0px 24px 32px 0px;
-  --shadow-subtle-5: var(--border-strong) 0px 0px 0px 1px inset;
-  --shadow-embossed: var(--border-strong) 0px 1px 1px 0px inset, var(--shadow-color) 0px 2px 4px 0px;
-  
-  /* Border Radius */
-  --radius-pill: 999px;
+  --radius-pill: var(--radius-pill);
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Base Reset & Typography
+───────────────────────────────────────────────────────────── */
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    background-color: var(--bg-main);
-    color: var(--text-muted);
-    font-family: var(--font-untitled-sans);
+    background-color: var(--bg-page);
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-aeonikpro);
-    color: var(--text-main);
+    font-family: var(--font-display);
+    color: var(--text-primary);
     letter-spacing: 0;
+    line-height: 1.15;
   }
+
+  ::selection {
+    background: rgba(102, 58, 243, 0.3);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg-page); }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-neon-violet); }
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Utility Classes
+───────────────────────────────────────────────────────────── */
 @layer utilities {
-  .text-display-xl { font-size: 48px; line-height: 1.14; }
-  .text-display { font-size: 44px; line-height: 1.16; }
-  .text-heading-lg { font-size: 28px; line-height: 1.2; }
-  .text-heading { font-size: 24px; line-height: 1.33; }
-  .text-subheading { font-size: 18px; line-height: 1.43; }
-  .text-body-lg { font-size: 16px; line-height: 1.5; }
-  .text-body { font-size: 14px; line-height: 1.5; }
-  .text-caption { font-size: 12px; line-height: 1.5; }
 
-  .bg-grid-pattern {
-    background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-                      linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-    background-size: 80px 80px;
+  /* ── Typography Scale ────────────────────────────────────── */
+  .text-display-xl { font-size: 48px; line-height: 1.12; font-family: var(--font-display); }
+  .text-display    { font-size: 44px; line-height: 1.14; font-family: var(--font-display); }
+  .text-heading-lg { font-size: 32px; line-height: 1.18; font-family: var(--font-display); }
+  .text-heading    { font-size: 24px; line-height: 1.28; font-family: var(--font-display); }
+  .text-subheading { font-size: 18px; line-height: 1.4;  font-family: var(--font-display); }
+  .text-body-lg    { font-size: 16px; line-height: 1.55; letter-spacing: -0.01px; }
+  .text-body       { font-size: 14px; line-height: 1.55; letter-spacing: -0.01px; }
+  .text-caption    { font-size: 12px; line-height: 1.5;  letter-spacing: 0.01px; }
+  .text-mono       { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.05px; font-feature-settings: "tnum"; }
+  .text-mono-sm    { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05px; font-feature-settings: "tnum"; }
+
+  /* ── Card Styles ─────────────────────────────────────────── */
+  .card-glass {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
-  .spotlight {
-    background: radial-gradient(ellipse at top, var(--spotlight-color), transparent 60%);
+  .card-elevated {
+    background: var(--bg-card-solid);
+    box-shadow: var(--shadow-card-elevated);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
   }
+
+  .card-inset {
+    box-shadow: var(--shadow-border-inset);
+    border-radius: var(--radius-md);
+  }
+
+  /* ── Button Styles ───────────────────────────────────────── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--color-neon-violet);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--radius-pill);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s, box-shadow 0.15s, transform 0.15s;
+    box-shadow: var(--shadow-accent-glow);
+    white-space: nowrap;
+  }
+  .btn-primary:hover {
+    opacity: 0.92;
+    box-shadow: rgba(102, 58, 243, 0.5) 0px 0px 28px 0px;
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: translateY(0px); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(186, 214, 247, 0.06);
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-strong);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .btn-outline:hover {
+    background: rgba(186, 214, 247, 0.1);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+  }
+
+  /* ── Badge ───────────────────────────────────────────────── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    background: var(--bg-card-solid);
+    color: var(--color-arctic-mist);
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+    font-family: var(--font-body);
+    letter-spacing: 0.02px;
+  }
+  .badge-accent {
+    background: rgba(102, 58, 243, 0.15);
+    color: #c4b3fd;
+    border-color: rgba(102, 58, 243, 0.3);
+  }
+  .badge-green {
+    background: rgba(52, 211, 153, 0.1);
+    color: #6ee7b7;
+    border-color: rgba(52, 211, 153, 0.2);
+  }
+  .badge-amber {
+    background: rgba(251, 191, 36, 0.1);
+    color: #fcd34d;
+    border-color: rgba(251, 191, 36, 0.2);
+  }
+
+  /* ── Grid Patterns ───────────────────────────────────────── */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .bg-grid-fine {
+    background-image:
+      linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* ── Spotlight ───────────────────────────────────────────── */
+  .spotlight-top {
+    background: var(--gradient-violet-glow);
+  }
+
+  /* ── Section Divider ─────────────────────────────────────── */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--gradient-system-border);
+  }
+
+  /* ── Dot Corners (decorative) ────────────────────────────── */
+  .dot-corners::before,
+  .dot-corners::after,
+  .dot-corners > .dot-br,
+  .dot-corners > .dot-bl {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--border-strong);
+  }
+
+  /* ── Neon accent line ────────────────────────────────────── */
+  .accent-line {
+    width: 40px;
+    height: 2px;
+    background: var(--color-neon-violet);
+    border-radius: 2px;
+    box-shadow: var(--shadow-accent-glow);
+  }
+
+  /* ── Glow Dot ────────────────────────────────────────────── */
+  .glow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 6px #34d399, 0 0 12px rgba(52, 211, 153, 0.4);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  .glow-dot-amber {
+    background: #fbbf24;
+    box-shadow: 0 0 6px #fbbf24, 0 0 12px rgba(251, 191, 36, 0.4);
+  }
+  .glow-dot-violet {
+    background: var(--color-neon-violet);
+    box-shadow: 0 0 6px var(--color-neon-violet), 0 0 12px rgba(102, 58, 243, 0.4);
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  /* ── Shimmer Skeleton ────────────────────────────────────── */
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .shimmer {
+    background: linear-gradient(90deg, var(--border-subtle) 25%, var(--border-strong) 50%, var(--border-subtle) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  /* ── Container ───────────────────────────────────────────── */
+  .container-main {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-pad);
+    padding-right: var(--container-pad);
+  }
+
+  /* ── Section ─────────────────────────────────────────────── */
+  .section {
+    padding-top: var(--section-gap);
+    padding-bottom: var(--section-gap);
+  }
+
+  /* ── Stat Value ──────────────────────────────────────────── */
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-feature-settings: "tnum";
+  }
+
+  /* ── Progress Bar ────────────────────────────────────────── */
+  .progress-bar {
+    height: 3px;
+    border-radius: 3px;
+    background: var(--border-subtle);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--color-neon-violet);
+    transition: width 0.8s ease;
+  }
+
+  /* ── Scrollbar hide for carousel ─────────────────────────── */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }

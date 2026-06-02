@@ -1,18 +1,22 @@
 import HeroSection from "@/components/HeroSection";
-import ThemeToggle from "@/components/ThemeToggle";
+import StatsBar from "@/components/StatsBar";
+import MechanicsSection from "@/components/MechanicsSection";
+import EconomySection from "@/components/EconomySection";
 import ArchitectureHub from "@/components/ArchitectureHub";
-import FeatureGrid from "@/components/FeatureGrid";
 import RoadmapSection from "@/components/RoadmapSection";
+import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col overflow-hidden selection:bg-neon-violet/30 selection:text-white">
+    <main className="flex flex-col overflow-hidden">
       <HeroSection />
-      <ThemeToggle />
+      <StatsBar />
+      <MechanicsSection />
+      <EconomySection />
       <ArchitectureHub />
-      <FeatureGrid />
       <RoadmapSection />
+      <CTASection />
       <Footer />
     </main>
   );
