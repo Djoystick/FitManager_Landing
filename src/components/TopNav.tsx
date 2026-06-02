@@ -129,7 +129,7 @@ export default function TopNav() {
 
         {/* CTA pill */}
         <Link
-          href="https://t.me/fitmanager_game_bot"
+          href="https://t.me/fitmanager_game_bot/app"
           target="_blank"
           className="hidden sm:flex btn-primary text-xs py-1.5 px-3"
           style={{ fontSize: "12px" }}

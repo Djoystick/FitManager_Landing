@@ -33,7 +33,7 @@ export default function Footer() {
           {/* Links */}
           <div className="flex items-center gap-4 text-caption" style={{ color: "var(--text-dim)" }}>
             <Link
-              href="https://t.me/fitmanager_game_bot"
+              href="https://t.me/fitmanager_game_bot/app"
               target="_blank"
               className="hover:text-white transition-colors duration-150"
             >
