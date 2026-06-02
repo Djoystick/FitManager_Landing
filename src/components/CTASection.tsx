@@ -92,7 +92,7 @@ export default function CTASection() {
 
           <div className="flex flex-col sm:flex-row items-center gap-3">
             <Link
-              href="https://t.me/fitmanager_game_bot/FitManager"
+              href="https://t.me/fitmanager_game_bot"
               target="_blank"
               className="btn-primary text-base px-6 py-3"
             >

@@ -112,7 +112,7 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row items-center gap-3 mb-10"
         >
           <Link
-            href="https://t.me/fitmanager_game_bot/FitManager"
+            href="https://t.me/fitmanager_game_bot"
             target="_blank"
             className="btn-primary"
           >
