@@ -86,7 +86,7 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
       <line x1="182" y1="190" x2="218" y2="190" stroke="#663af3" strokeWidth="1.5" strokeOpacity="0.9" strokeLinecap="round" />
       <line x1="182" y1="200" x2="218" y2="200" stroke="#663af3" strokeWidth="1.5" strokeOpacity="0.9" strokeLinecap="round" />
       <line x1="182" y1="210" x2="218" y2="210" stroke="#663af3" strokeWidth="1.5" strokeOpacity="0.9" strokeLinecap="round" />
-      <text x="200" y="222" textAnchor="middle" fontSize="8" fill="#663af3" fontFamily="'IBM Plex Mono', monospace" opacity="0.8">
+      <text x="200" y="226" textAnchor="middle" fontSize="11" fill="#663af3" fontFamily="'IBM Plex Mono', monospace" opacity="0.8">
         Match Engine
       </text>
 
@@ -102,23 +102,23 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
 
         if (n.angle === 270) { // Left
           labelX = x - 26;
-          labelY = y - 2;
-          descY = y + 7;
+          labelY = y - 3;
+          descY = y + 9;
           align = "end";
         } else if (n.angle === 90) { // Right
           labelX = x + 26;
-          labelY = y - 2;
-          descY = y + 7;
+          labelY = y - 3;
+          descY = y + 9;
           align = "start";
         } else if (n.angle < 90 || n.angle > 270) { // Top
           labelX = x;
-          labelY = y - 30;
-          descY = y - 21;
+          labelY = y - 32;
+          descY = y - 20;
           align = "middle";
         } else { // Bottom
           labelX = x;
-          labelY = y + 32;
-          descY = y + 41;
+          labelY = y + 36;
+          descY = y + 48;
           align = "middle";
         }
 
@@ -147,7 +147,7 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
             <text
               x={labelX} y={labelY}
               textAnchor={align}
-              fontSize="7"
+              fontSize="11"
               fontWeight="600"
               fill="var(--text-primary)"
               fontFamily="'Space Grotesk', sans-serif"
@@ -158,7 +158,7 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
             <text
               x={labelX} y={descY}
               textAnchor={align}
-              fontSize="5.5"
+              fontSize="7.5"
               fill="var(--text-dim)"
               fontFamily="'IBM Plex Mono', monospace"
               opacity="0.7"
