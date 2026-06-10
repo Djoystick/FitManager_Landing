@@ -30,8 +30,8 @@ export default function Footer() {
             </span>
           </div>
 
-          {/* Links */}
-          <div className="flex items-center gap-4 text-caption" style={{ color: "var(--text-dim)" }}>
+          {/* Links & Docs */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 text-caption" style={{ color: "var(--text-dim)" }}>
             <Link
               href="https://t.me/fitmanager_game_bot/app"
               target="_blank"
@@ -46,9 +46,19 @@ export default function Footer() {
             >
               {t("footer.blog")}
             </Link>
-            <Link href="#" className="hover:text-white transition-colors duration-150">
-              {t("footer.privacy")}
-            </Link>
+
+            {/* Documentation Buttons */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-2 sm:mt-0 sm:ml-4">
+              <Link href="/terms" className="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-white/70 hover:text-white transition-all duration-200">
+                {t("footer.terms")}
+              </Link>
+              <Link href="/privacy" className="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-white/70 hover:text-white transition-all duration-200">
+                {t("footer.privacy")}
+              </Link>
+              <button onClick={() => alert('This app is for entertainment only and is not a medical device. We are not an exchange or broker. TON purchases are in-game transactions.')} className="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-white/70 hover:text-white transition-all duration-200">
+                {t("footer.disclaimer")}
+              </button>
+            </div>
           </div>
 
           {/* Copyright */}
