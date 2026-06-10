@@ -98,7 +98,7 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
         let labelX = x;
         let labelY = y;
         let descY = y;
-        let align = "middle";
+        let align: "start" | "middle" | "end" = "middle";
 
         if (n.angle === 270) { // Left
           labelX = x - 26;
