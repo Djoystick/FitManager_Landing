@@ -110,16 +110,21 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
           labelY = y - 3;
           descY = y + 9;
           align = "start";
-        } else if (n.angle < 90 || n.angle > 270) { // Top
-          labelX = x;
-          labelY = y - 32;
-          descY = y - 20;
-          align = "middle";
-        } else { // Bottom
-          labelX = x;
-          labelY = y + 36;
-          descY = y + 48;
-          align = "middle";
+        } else {
+          // Top and Bottom nodes
+          const isTop = n.angle < 90 || n.angle > 270;
+          const isLeft = n.angle > 180; 
+
+          labelY = isTop ? y - 32 : y + 36;
+          descY = isTop ? y - 20 : y + 48;
+          
+          if (isLeft) {
+            align = "end";
+            labelX = x + 16;
+          } else {
+            align = "start";
+            labelX = x - 16;
+          }
         }
 
         return (
