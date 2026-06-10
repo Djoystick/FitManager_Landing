@@ -55,7 +55,7 @@ export default function Footer() {
               <Link href="/privacy" className="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-white/70 hover:text-white transition-all duration-200">
                 {t("footer.privacy")}
               </Link>
-              <button onClick={() => alert('This app is for entertainment only and is not a medical device. We are not an exchange or broker. TON purchases are in-game transactions.')} className="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-white/70 hover:text-white transition-all duration-200">
+              <button onClick={() => alert(t("footer.disclaimer_text") || 'This app is for entertainment only.')} className="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-white/70 hover:text-white transition-all duration-200">
                 {t("footer.disclaimer")}
               </button>
             </div>
