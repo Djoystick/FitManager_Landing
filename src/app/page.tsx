@@ -11,7 +11,6 @@ export default function Home() {
   return (
     <main className="flex flex-col overflow-hidden">
       <HeroSection />
-      <StatsBar />
       <MechanicsSection />
       <EconomySection />
       <ArchitectureHub />

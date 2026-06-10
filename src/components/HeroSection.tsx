@@ -8,12 +8,7 @@ import dynamic from "next/dynamic";
 
 const CyberPitchBackground = dynamic(() => import("./CyberPitchBackground"), { ssr: false });
 
-const STATS = [
-  { key: "stat_tiers",  value: "10",  unit: "" },
-  { key: "stat_traits", value: "7",   unit: "" },
-  { key: "stat_mins",   value: "90",  unit: "min" },
-  { key: "stat_squad",  value: "16",  unit: "" },
-];
+import StatsBar from "./StatsBar";
 
 export default function HeroSection() {
   const { t } = useLanguage();
@@ -57,7 +52,8 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
-      <div className="container-main relative z-10 flex flex-col items-center text-center">
+      {/* ── Main Content Container ── */}
+      <div className="container-main relative z-10 flex flex-col items-center text-center pb-20 pt-10">
 
         {/* ── Badge ── */}
         <motion.div
@@ -134,59 +130,15 @@ export default function HeroSection() {
           </Link>
         </motion.div>
 
-        {/* ── Stats row ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.28 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full max-w-xl mb-10"
-        >
-          {STATS.map(({ key, value, unit }) => (
-            <div
-              key={key}
-              className="card-glass flex flex-col items-center justify-center py-3 px-2 rounded-lg"
-            >
-              <span className="stat-value text-2xl">{value}{unit}</span>
-              <span
-                className="text-caption mt-0.5 text-center"
-                style={{ color: "var(--text-dim)" }}
-              >
-                {t(`hero.${key}`)}
-              </span>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* ── Bottom decorative divider ── */}
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className="w-full max-w-xl section-divider"
-          style={{ transformOrigin: "center" }}
-        />
+        {/* CTAs end */}
       </div>
 
-      {/* ── Scroll cue ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
-        aria-hidden="true"
-      >
-        <div
-          className="w-px h-8"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent, var(--border-strong))",
-          }}
-        />
-        <div
-          className="w-1.5 h-1.5 rounded-full"
-          style={{ background: "var(--border-strong)" }}
-        />
-      </motion.div>
+      {/* ── Stats Bar at the bottom of the first screen ── */}
+      <div className="absolute bottom-0 left-0 w-full bg-black/40 backdrop-blur-sm border-t border-white/5 z-20">
+        <StatsBar />
+      </div>
+
+      {/* ── Bottom decorative divider & scroll cue removed/replaced by StatsBar ── */}
     </section>
   );
 }
