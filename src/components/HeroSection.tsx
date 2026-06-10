@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Send } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
+import dynamic from "next/dynamic";
+
+const CyberPitchBackground = dynamic(() => import("./CyberPitchBackground"), { ssr: false });
 
 const STATS = [
   { key: "stat_tiers",  value: "10",  unit: "" },
@@ -20,6 +23,8 @@ export default function HeroSection() {
       className="relative flex flex-col items-center justify-center min-h-screen pt-12 pb-0 overflow-hidden"
       aria-label="Hero"
     >
+      <CyberPitchBackground />
+
       {/* ── Top ambient glow ── */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] pointer-events-none"
