@@ -7,12 +7,12 @@ import { useLanguage } from "../contexts/LanguageContext";
 // Central node with 6 satellite nodes connected by circuit-like paths
 
 const NODES = [
-  { id: "engine", angle: 270, radius: 140, color: "#663af3", glow: true },
-  { id: "db",     angle: 330, radius: 140, color: "#3ecf8e", glow: false },
-  { id: "ton",    angle: 30,  radius: 140, color: "#0098ea", glow: false },
-  { id: "tg",     angle: 90,  radius: 140, color: "#2ca5e0", glow: false },
-  { id: "cron",   angle: 150, radius: 140, color: "#fbbf24", glow: false },
-  { id: "auth",   angle: 210, radius: 140, color: "#f472b6", glow: false },
+  { id: "engine", angle: 270, radius: 120, color: "#663af3", glow: true },
+  { id: "db",     angle: 330, radius: 120, color: "#3ecf8e", glow: false },
+  { id: "ton",    angle: 30,  radius: 120, color: "#0098ea", glow: false },
+  { id: "tg",     angle: 90,  radius: 120, color: "#2ca5e0", glow: false },
+  { id: "cron",   angle: 150, radius: 120, color: "#fbbf24", glow: false },
+  { id: "auth",   angle: 210, radius: 120, color: "#f472b6", glow: false },
 ];
 
 function toXY(angle: number, radius: number, cx = 200, cy = 200) {
@@ -30,6 +30,7 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className="w-full max-w-[380px] mx-auto"
+      style={{ overflow: "visible" }}
       aria-label="Architecture hub diagram"
     >
       <defs>
@@ -46,13 +47,13 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
       </defs>
 
       {/* ── Faint rings ── */}
-      <circle cx="200" cy="200" r="140" stroke="var(--border-subtle)" strokeWidth="1" strokeDasharray="4 8" />
-      <circle cx="200" cy="200" r="80"  stroke="var(--border-subtle)" strokeWidth="1" />
+      <circle cx="200" cy="200" r="120" stroke="var(--border-subtle)" strokeWidth="1" strokeDasharray="4 8" />
+      <circle cx="200" cy="200" r="70"  stroke="var(--border-subtle)" strokeWidth="1" />
 
       {/* ── Connection paths with corner-bend aesthetic ── */}
       {NODES.map((n) => {
         const { x, y } = toXY(n.angle, n.radius);
-        const mid = toXY(n.angle, 80);
+        const mid = toXY(n.angle, 70);
         return (
           <motion.path
             key={n.id}
@@ -92,9 +93,34 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
       {/* ── Satellite nodes ── */}
       {NODES.map((n, i) => {
         const { x, y } = toXY(n.angle, n.radius);
-        const labelPos = toXY(n.angle, n.radius + 22);
-        const descPos  = toXY(n.angle, n.radius + 32);
         const keyBase  = `architecture.node_${n.id}`;
+        
+        let labelX = x;
+        let labelY = y;
+        let descY = y;
+        let align = "middle";
+
+        if (n.angle === 270) { // Left
+          labelX = x - 26;
+          labelY = y - 2;
+          descY = y + 7;
+          align = "end";
+        } else if (n.angle === 90) { // Right
+          labelX = x + 26;
+          labelY = y - 2;
+          descY = y + 7;
+          align = "start";
+        } else if (n.angle < 90 || n.angle > 270) { // Top
+          labelX = x;
+          labelY = y - 30;
+          descY = y - 21;
+          align = "middle";
+        } else { // Bottom
+          labelX = x;
+          labelY = y + 32;
+          descY = y + 41;
+          align = "middle";
+        }
 
         return (
           <motion.g
@@ -119,8 +145,8 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
 
             {/* Labels */}
             <text
-              x={labelPos.x} y={labelPos.y}
-              textAnchor="middle"
+              x={labelX} y={labelY}
+              textAnchor={align}
               fontSize="7"
               fontWeight="600"
               fill="var(--text-primary)"
@@ -130,8 +156,8 @@ function ArchSVG({ t }: { t: (k: string) => string }) {
               {t(`${keyBase}`)}
             </text>
             <text
-              x={descPos.x} y={descPos.y}
-              textAnchor="middle"
+              x={labelX} y={descY}
+              textAnchor={align}
               fontSize="5.5"
               fill="var(--text-dim)"
               fontFamily="'IBM Plex Mono', monospace"
