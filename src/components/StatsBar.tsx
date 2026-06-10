@@ -44,7 +44,7 @@ export default function StatsBar() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex items-stretch min-w-max"
+          className="flex items-stretch min-w-max mx-auto justify-center w-full"
         >
           {STATS.map(({ labelKey, value, suffix }, i) => (
             <div
